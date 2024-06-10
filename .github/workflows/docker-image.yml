@@ -9,6 +9,21 @@ jobs:
     name: Unit Test
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_DB: book_application
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: Password
+
     steps:
       - uses: actions/checkout@v1
       - name: Set up JDK 18
@@ -20,10 +35,7 @@ jobs:
       - name: Maven Verify
         run: mvn -B clean verify
 
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
+   
       - uses: actions/checkout@v3
       - name: Set up JDK 18
         uses: actions/setup-java@v3
@@ -31,8 +43,16 @@ jobs:
           java-version: '18'
           distribution: 'temurin'
           cache: maven
+          
       - name: Build with Maven
         run: mvn -B package --file pom.xml
+
+      - name: Run tests with Maven
+        run: mvn test
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/book_application
+          SPRING_DATASOURCE_USERNAME: postgres
+          SPRING_DATASOURCE_PASSWORD: Password
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
