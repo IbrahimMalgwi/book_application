@@ -4,6 +4,7 @@ COPY . .
 # Build the application with maven
 RUN mvn -B clean package -DskipTests
 
+# Create a new image with the jar file
 FROM openjdk:17
 WORKDIR /app
 
