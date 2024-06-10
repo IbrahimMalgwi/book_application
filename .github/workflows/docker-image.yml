@@ -49,4 +49,4 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: ganzymalgwi/book-application
+          tags: ganzymalgwi/book_application
