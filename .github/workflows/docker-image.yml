@@ -2,7 +2,8 @@ name: Deploy to Docker Hub
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   build-and-deploy:
@@ -17,7 +18,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'tamurin'
-          cache: 'maven'
+          cache: maven
 
       - name: restore cache
         uses: actions/cache@v2
@@ -38,8 +39,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: build docker image
-        run: docker build . -t ganzymalgwi/book_application
+      - name: Build docker image
+        run: docker build -t ganzymalgwi/book_application
 
       - name: push docker image
         run: docker push ganzymalgwi/book_application
