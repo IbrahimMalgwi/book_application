@@ -1,7 +1,14 @@
-FROM openjdk:17-jdk-alpine
+FROM maven:3.8.7 AS build
+WORKDIR /app
+COPY . .
+# Build the application with maven
+RUN mvn -B clean package -DskipTests
 
-ARG JAR_FILE=target/*.jar
+FROM openjdk:17
+WORKDIR /app
 
-COPY target/*.jar app.jar
+COPY --from=build /app/target/*.jar book-application.jar
 
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENV SERVER_PORT=8282
+
+CMD ["java", "-jar", "book-application.jar"]
