@@ -40,7 +40,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build docker image
-        run: docker build -t ganzymalgwi/book_application
+        run: docker build -t ganzymalgwi/book_application .
 
       - name: push docker image
         run: docker push ganzymalgwi/book_application
