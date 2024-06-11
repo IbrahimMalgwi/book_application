@@ -20,6 +20,30 @@ jobs:
       - name: Maven Verify
         run: mvn -B clean verify
 
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_DB: book_application
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
+#      steps:
+#          - name: Checkout code
+#            uses: actions/checkout@v2
+#            env:
+#              SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/book_application
+#              SPRING_DATASOURCE_USERNAME: postgres
+#              SPRING_DATASOURCE_PASSWORD: postgres
+
+
   build:
     runs-on: ubuntu-latest
 
