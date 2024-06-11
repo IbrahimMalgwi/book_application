@@ -35,13 +35,12 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
 
-#      steps:
-#          - name: Checkout code
-#            uses: actions/checkout@v2
-#            env:
-#              SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/book_application
-#              SPRING_DATASOURCE_USERNAME: postgres
-#              SPRING_DATASOURCE_PASSWORD: postgres
+      steps:
+        image: maven:3.8.1-openjdk-17
+        env:
+              SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/book_application
+              SPRING_DATASOURCE_USERNAME: postgres
+              SPRING_DATASOURCE_PASSWORD: postgres
 
 
   build:
