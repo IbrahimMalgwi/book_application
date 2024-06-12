@@ -33,14 +33,14 @@ jobs:
         env:
           POSTGRES_DB: book_application
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: Password
 
       steps:
         image: maven:3.8.1-openjdk-17
         env:
               SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/book_application
               SPRING_DATASOURCE_USERNAME: postgres
-              SPRING_DATASOURCE_PASSWORD: postgres
+              SPRING_DATASOURCE_PASSWORD: Password
 
 
   build:
