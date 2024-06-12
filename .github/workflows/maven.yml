@@ -46,6 +46,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    
+    services:
+      postgres:
+        image: postgres:latest
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_DB: book_application
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: Password
+
+      steps:
+        image: maven:3.8.1-openjdk-17
+        env:
+              SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/book_application
+              SPRING_DATASOURCE_USERNAME: postgres
+              SPRING_DATASOURCE_PASSWORD: Password
+
+
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
