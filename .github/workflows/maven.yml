@@ -7,77 +7,14 @@ on:
 jobs:
   test:
     name: Unit test
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: Set up JDK 17
-        uses: actions/setup-java@v1
-        with:
-          java-version: '17'
-      - name: Maven Package
-        run: mvn -B clean package -DskipTests
-      - name: Maven Verify
-        run: mvn -B clean verify
-
-    services:
-      postgres:
-        image: postgres:latest
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        env:
-          POSTGRES_DB: book_application
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: Password
-
-      steps:
-        image: maven:3.8.1-openjdk-17
-        env:
-              SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/book_application
-              SPRING_DATASOURCE_USERNAME: postgres
-              SPRING_DATASOURCE_PASSWORD: Password
-
+    uses: ./.github/workflows/reusable-workflow.yml
+    with:
+      java-version: '17'
+      maven-goal: 'clean verify'
 
   build:
-    runs-on: ubuntu-latest
-
-    
-    services:
-      postgres:
-        image: postgres:latest
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        env:
-          POSTGRES_DB: book_application
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: Password
-
-      steps:
-        image: maven:3.8.1-openjdk-17
-        env:
-              SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/book_application
-              SPRING_DATASOURCE_USERNAME: postgres
-              SPRING_DATASOURCE_PASSWORD: Password
-
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
-      - name: Build with Maven
-        run: mvn -B package --file pom.xml
-#app
+    name: Build
+    uses: ./.github/workflows/reusable-workflow.yml
+    with:
+      java-version: '17'
+      maven-goal: 'clean package -DskipTests'
