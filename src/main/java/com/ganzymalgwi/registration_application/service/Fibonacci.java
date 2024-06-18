@@ -1,4 +1,4 @@
-package com.ganzymalgwi.book_application.service;
+package com.ganzymalgwi.registration_application.service;
 
 public class Fibonacci {
 

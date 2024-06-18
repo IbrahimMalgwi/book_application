@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ganzymalgwi</groupId>
-	<artifactId>book-application</artifactId>
+	<artifactId>registration-application</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>book-application</name>
 	<description>Demo project for Spring Boot</description>

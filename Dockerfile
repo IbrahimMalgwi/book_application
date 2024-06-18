@@ -8,6 +8,7 @@ RUN mvn -B clean package -DskipTests
 FROM openjdk:17
 WORKDIR /app
 
+# Copy the jar file from the build image to the new image
 COPY --from=build /app/target/*.jar book-application.jar
 
 ENV SERVER_PORT=8282
