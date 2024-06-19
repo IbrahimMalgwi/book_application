@@ -1,22 +1,20 @@
 package com.ganzymalgwi.registration_application.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Entity
+@Table(name = "app_users")
 public class User {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Integer id;
+    @GeneratedValue
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
-//book
-
 }

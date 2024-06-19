@@ -8,9 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class RegistrationRequest {
-    private String title;
-    private String author;
-    private String genre;
+    private String firstName;
+    private String lastName;
+    private String email;
+
 }

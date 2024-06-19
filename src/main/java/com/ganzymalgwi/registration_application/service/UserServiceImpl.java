@@ -3,19 +3,22 @@ package com.ganzymalgwi.registration_application.service;
 import com.ganzymalgwi.registration_application.dto.RegistrationRequest;
 import com.ganzymalgwi.registration_application.entity.User;
 import com.ganzymalgwi.registration_application.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
-public class UserServiceImpl implements UserService {
+@Service
+public class UserServiceImpl implements UserService{
+
     private UserRepository userRepository;
-    @Override
-    public User register(RegistrationRequest registrationRequest) {
 
-            if (userRepository.findByEmail(registrationRequest.getTitle()).isPresent())
-                throw new IllegalArgumentException("Book already exists");
-            User newBook = new User();
-            newBook.setFirstName(registrationRequest.getTitle());
-            newBook.setLastName(registrationRequest.getAuthor());
-            newBook.setEmail(registrationRequest.getGenre());
-            userRepository.save(newBook);
-            return newBook;
+    @Override
+    public String register(RegistrationRequest registrationRequest) {
+        if (userRepository.findByEmail(registrationRequest.getEmail()).isPresent())
+            throw new IllegalArgumentException("Email already exists");
+        User newUser =  new User();
+        newUser.setFirstName(registrationRequest.getFirstName());
+        newUser.setLastName(registrationRequest.getLastName());
+        newUser.setEmail(registrationRequest.getEmail());
+        userRepository.save(newUser);
+        return "saved successfully";
     }
 }

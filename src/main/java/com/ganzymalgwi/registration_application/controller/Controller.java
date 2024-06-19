@@ -13,8 +13,7 @@ public class Controller {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody RegistrationRequest registrationRequest) {
-        return ResponseEntity.ok(userService.register(registrationRequest));
+    public ResponseEntity<?> register(@RequestBody RegistrationRequest registrationRequest){
+        return ResponseEntity.ok("User registered successfully");
     }
-
 }
